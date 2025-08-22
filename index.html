@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For My Marya 💖</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top left, #ff6b9f55, transparent 40%),
+                  radial-gradient(circle at bottom right, #8a5cff55, transparent 40%),
+                  #0f172a;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+      color: #fff;
+      text-align: center;
+    }
+
+    /* Floating hearts animation */
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #ff4f91;
+      transform: rotate(45deg);
+      animation: float 8s linear infinite;
+      opacity: 0.7;
+    }
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #ff4f91;
+      border-radius: 50%;
+    }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
+    }
+
+    #message {
+      font-size: 28px;
+      margin: 20px;
+      min-height: 100px;
+      animation: fadeIn 1s ease forwards;
+      opacity: 0;
+      text-shadow: 0 0 12px #ff6b9f, 0 0 24px #8a5cff;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    #nextBtn {
+      padding: 12px 22px;
+      font-size: 20px;
+      border: none;
+      border-radius: 25px;
+      background: linear-gradient(90deg, #ff6b9f, #8a5cff);
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+      animation: pulse 1.5s infinite;
+      margin-top: 20px;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); box-shadow: 0 0 10px #ff6b9f; }
+      50% { transform: scale(1.05); box-shadow: 0 0 25px #8a5cff; }
+      100% { transform: scale(1); box-shadow: 0 0 10px #ff6b9f; }
+    }
+
+    #downloadBtn {
+      display: none;
+      padding: 14px 24px;
+      font-size: 20px;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ff6b9f, #8a5cff);
+      color: #fff;
+      box-shadow: 0 0 25px #ff6b9f, 0 0 35px #8a5cff;
+      animation: glow 1.8s infinite alternate;
+      margin-top: 20px;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 15px #ff6b9f, 0 0 25px #8a5cff; }
+      to { box-shadow: 0 0 35px #ff6b9f, 0 0 55px #8a5cff; }
+    }
+
+    /* Heart glow at end */
+    #heartGlow {
+      display: none;
+      font-size: 80px;
+      color: #ff4f91;
+      text-shadow: 0 0 20px #ff6b9f, 0 0 40px #ff6b9f, 0 0 60px #8a5cff;
+      animation: beat 1.2s infinite;
+      margin-top: 20px;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Music -->
+  <audio id="bgmusic" src="romantic.mp3" autoplay loop></audio>
+
+  <!-- Floating Hearts -->
+  <div class="heart" style="left:10%; animation-duration: 7s;"></div>
+  <div class="heart" style="left:30%; animation-duration: 9s;"></div>
+  <div class="heart" style="left:50%; animation-duration: 8s;"></div>
+  <div class="heart" style="left:70%; animation-duration: 6s;"></div>
+  <div class="heart" style="left:90%; animation-duration: 10s;"></div>
+
+  <!-- Message Display -->
+  <div id="message">Marya 💖 Tum meri zindagi ki sabse khoobsurat daastaan ho...</div>
+  <button id="nextBtn">Next meri jaan 💖</button>
+  <a id="downloadBtn" href="marya meri jaan.mp3" download="marya meri jaan.mp3">⬇️ Download song </a>
+  <div id="heartGlow">💖</div>
+
+  <script>
+    // Messages
+    const messages = [
+      "Marya 💖 Tum meri zindagi ki sabse khoobsurat daastaan ho...",
+      "Teri muskaan meri duniya roshan kar deti hai ✨",
+      "Har pal tera saath meri duaon ka jawaab hai 🙏",
+      "Tu hai toh main hoon, tu hi meri saari khwahish hai 💕",
+      "With love, — Love Gautam 💖"
+    ];
+
+    let index = 0;
+    const messageEl = document.getElementById('message');
+    const nextBtn = document.getElementById('nextBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const heartGlow = document.getElementById('heartGlow');
+
+    nextBtn.addEventListener('click', () => {
+      index++;
+      if(index < messages.length) {
+        messageEl.style.opacity = 0;
+        setTimeout(() => {
+          messageEl.textContent = messages[index];
+          messageEl.style.opacity = 1;
+        }, 400);
+      } else {
+        messageEl.textContent = "Ab ek chhota sa tohfa tumhare liye 💝";
+        nextBtn.style.display = "none";
+        downloadBtn.style.display = "inline-block";
+        heartGlow.style.display = "block";
+      }
+    });
+
+    // Background music autoplay fix
+    const audio = document.getElementById("bgmusic");
+    window.addEventListener("load", () => {
+      audio.play().catch(() => {
+        audio.muted = true;
+        audio.play().then(() => {
+          setTimeout(() => audio.muted = false, 1000);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
