@@ -56,6 +56,7 @@
       animation: fadeIn 1s ease forwards;
       opacity: 0;
       text-shadow: 0 0 12px #ff6b9f, 0 0 24px #8a5cff;
+      display: none;
     }
 
     @keyframes fadeIn {
@@ -63,7 +64,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    #nextBtn {
+    .btn {
       padding: 12px 22px;
       font-size: 20px;
       border: none;
@@ -102,7 +103,6 @@
       to { box-shadow: 0 0 35px #ff6b9f, 0 0 55px #8a5cff; }
     }
 
-    /* Heart glow at end */
     #heartGlow {
       display: none;
       font-size: 80px;
@@ -120,7 +120,7 @@
 </head>
 <body>
   <!-- Background Music -->
-  <audio id="bgmusic" src="romantic.mp3" autoplay loop></audio>
+  <audio id="bgmusic" src="romantic.mp3" loop></audio>
 
   <!-- Floating Hearts -->
   <div class="heart" style="left:10%; animation-duration: 7s;"></div>
@@ -129,14 +129,16 @@
   <div class="heart" style="left:70%; animation-duration: 6s;"></div>
   <div class="heart" style="left:90%; animation-duration: 10s;"></div>
 
+  <!-- Start Button -->
+  <button id="startBtn" class="btn">❤️ Start My Love ❤️</button>
+
   <!-- Message Display -->
-  <div id="message">Marya 💖 Tum meri zindagi ki sabse khoobsurat daastaan ho...</div>
-  <button id="nextBtn">Next meri jaan 💖</button>
+  <div id="message"></div>
+  <button id="nextBtn" class="btn" style="display:none;">Next meri jaan 💖</button>
   <a id="downloadBtn" href="marya meri jaan.mp3" download="marya meri jaan.mp3">⬇️ Download song </a>
   <div id="heartGlow">💖</div>
 
   <script>
-    // Messages
     const messages = [
       "Marya 💖 Tum meri zindagi ki sabse khoobsurat daastaan ho...",
       "Teri muskaan meri duniya roshan kar deti hai ✨",
@@ -147,9 +149,19 @@
 
     let index = 0;
     const messageEl = document.getElementById('message');
+    const startBtn = document.getElementById('startBtn');
     const nextBtn = document.getElementById('nextBtn');
     const downloadBtn = document.getElementById('downloadBtn');
     const heartGlow = document.getElementById('heartGlow');
+    const audio = document.getElementById("bgmusic");
+
+    startBtn.addEventListener("click", () => {
+      audio.play();
+      startBtn.style.display = "none";
+      messageEl.style.display = "block";
+      messageEl.textContent = messages[index];
+      nextBtn.style.display = "inline-block";
+    });
 
     nextBtn.addEventListener('click', () => {
       index++;
@@ -165,17 +177,6 @@
         downloadBtn.style.display = "inline-block";
         heartGlow.style.display = "block";
       }
-    });
-
-    // Background music autoplay fix
-    const audio = document.getElementById("bgmusic");
-    window.addEventListener("load", () => {
-      audio.play().catch(() => {
-        audio.muted = true;
-        audio.play().then(() => {
-          setTimeout(() => audio.muted = false, 1000);
-        });
-      });
     });
   </script>
 </body>
